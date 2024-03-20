@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h1 class="page-header">Properties</h1>
+
+{% include 'flash_messages.html' %}
+
+{# Add the appropriate method and enctype attributes to the form tag to allow for file uploads #}
+<form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
+  {{ form.hidden_tag() }}
+
+  {# Add the file upload field as you learnt for Flask-WTF #}
+  <div class="form-group">
+    {{ form.file.label(class="form-control-label") }}
+    {{ form.file(class="form-control form-control-file", id="file") }}
+    {% for error in form.file.errors %}
+      <span class="text-danger">{{ error }}</span>
+    {% endfor %}
+  </div>

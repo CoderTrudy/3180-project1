@@ -14,6 +14,10 @@ from wtforms.validators import InputRequired
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import os
+from app.forms import PropertyForm
+from app.models import Property
+
+
 
 ###
 # Routing for your application.
