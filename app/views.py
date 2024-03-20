@@ -7,7 +7,13 @@ This file contains the routes for your application.
 
 from app import app
 from flask import render_template, request, redirect, url_for
-
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_wtf import FlaskForm
+from wtforms import StringField, SelectField, TextAreaField, IntegerField, FileField
+from wtforms.validators import InputRequired
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.utils import secure_filename
+import os
 
 ###
 # Routing for your application.
@@ -24,10 +30,49 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
+@app.route("/properties/create")
+def create_properties():
+    form = PropertyForm()
+    if form.validate_on_submit():
+        # Save uploaded file
+        photo_filename = ''
+        if form.photo.data:
+            photo = form.photo.data
+            photo_filename = secure_filename(photo.filename)
+            photo.save(os.path.join(app.config['UPLOAD_FOLDER'], photo_filename))
+        
+        # Create new property object and add it to the database
+        new_property = Property(
+            title=form.title.data,
+            bedrooms=form.bedrooms.data,
+            bathrooms=form.bathrooms.data,
+            location=form.location.data,
+            price=form.price.data,
+            type=form.type.data,
+            description=form.description.data,
+            photo=photo_filename
+        )
+        db.session.add(new_property)
+        db.session.commit()
+        return redirect(url_for('properties'))
 
+    return render_template('create_property.html', form=form)
+
+
+
+
+@app.route("/properties")
+def properties():
+    properties = Property.query.all()
+    return render_template('properties.html', properties=properties)
+
+@app.route("/properties/<propertyid>")
 ###
 # The functions below should be applicable to all Flask apps.
 ###
+def view_properties(propertyid):
+    property = Property.query.get_or_404(propertyid)
+    return render_template('viewproperty.html', property=property)
 
 # Display Flask WTF errors as Flash messages
 def flash_errors(form):
