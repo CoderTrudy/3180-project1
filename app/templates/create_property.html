@@ -1,47 +1,58 @@
-% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block main %}
-<h1>Add New Property</h1>
-<hr>
-<form method="POST" action="/properties/create">
-    {{ form.csrf_token }}
-    <div class="form-group">
-    <label class="bold-label">{{ form.name.label(class="required-label")}}</label>
-    <p>Please enter your full name.</p>
-    {{ form.name(size=20) }}
-    {% for error in form.name.errors %}
-        <p class="error">{{ error }}</p>
-    {% endfor %}
-    </div>
-
-    <div class="form-group">
-    <label class="bold-label">{{ form.email.label(class="required-label")}}</label>
-    <p>Please enter your email address.</p>
-    {{ form.email(size=20) }}
-    {% for error in form.email.errors %}
-        <p class="error">{{ error }}</p>
-    {% endfor %}
-    </div>
-
-    <div class="form-group">
-    <label class="bold-label">{{ form.subject.label(class="required-label") }}</label> </p>
-    <p>Please enter the subject for your message.</p>
-    {{ form.subject(size=20) }}
-    {% for error in form.subject.errors %}
-        <p class="error">{{ error }}</p>
-    {% endfor %}
-    </div>
-
-    <div class="form-group">
-    <label class="bold-label">{{ form.message.label(class="required-label")}}</label>
-    <p>Please enter the message you would like to send.</p>
-    {{ form.message(rows=10, cols=50) }}
-    {% for error in form.message.errors %}
-    <p class="error">{{ error }}</p>
-    {% endfor %}
-    </div>
-
-    <button type="submit">Send</button>
-</form>
-
+    <h1>Add New Property</h1>
+    <hr>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.title.label }} {{ form.title(class="form-control") }}
+            {% for error in form.title.errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.description.label }} {{ form.description(class="form-control") }}
+            {% for error in form.description.errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.bedrooms.label }} {{ form.bedrooms(class="form-control") }}
+            {% for error in form.bedrooms.errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.bathrooms.label }} {{ form.bathrooms(class="form-control") }}
+            {% for error in form.bathrooms.errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.location.label }} {{ form.location(class="form-control") }}
+            {% for error in form.location.errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.price.label }} {{ form.price(class="form-control") }}
+            {% for error in form.price.errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.type.label }} {{ form.type(class="form-control") }}
+            {% for error in form.type.errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.photo.label }} {{ form.photo(class="form-control-file") }}
+            {% for error in form.photo.errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Add Property</button>
+    </form>
 {% endblock %}

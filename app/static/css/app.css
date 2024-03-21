@@ -1,3 +1,58 @@
 body {
     padding-top: 5rem;
 }
+
+.flex-container {
+    display: flex;
+    flex-wrap:wrap;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Set up flex container for form groups */
+.form-group.flex-container {
+    display: flex;
+    align-items: flex-start; /* Align items at the start of the flex container */
+}
+
+/* Set flex properties for location */
+.location {
+    flex: 1; /* Location field takes up 1/3 of the container */
+    margin-right: 10px; /* Add some space between the fields */
+}
+
+/* Set flex properties for price */
+.price {
+    flex: 1; /* Price field takes up 1/3 of the container */
+}
+.property-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
+    gap: 20px; /* Gap between grid items */
+}
+
+.property {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.property h2 {
+    margin-top: 0;
+}
+
+.property-photo {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+/* Styling for <strong> tags */
+.property strong {
+    font-weight: bold;
+    color: #333; /* Change color as desired */
+}
+
+
